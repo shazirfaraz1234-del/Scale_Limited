@@ -4,8 +4,9 @@ import { createPublicClient } from "@/lib/supabase/server";
 import { ArrowRight, MonitorSmartphone, HeartPulse, Wallet, ShoppingCart } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Industries | Scale Limited",
+  title: "Industries",
   description: "Scale Limited brings specialized knowledge and tailored solutions to meet the unique challenges of your sector.",
+  alternates: { canonical: "/industries" },
 };
 
 export const revalidate = 3600; // Cache for 1 hour

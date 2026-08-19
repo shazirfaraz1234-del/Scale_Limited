@@ -3,8 +3,9 @@ import Link from "next/link";
 import { ArrowRight, Users, Briefcase, Cpu, ShieldCheck, Globe, Zap, TrendingUp, CheckCircle2, ChevronDown, Check } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Our Services | Scale Limited",
+  title: "Our Services",
   description: "Flexible solutions for a changing business. Explore our staff augmentation, BPO, and technology solutions.",
+  alternates: { canonical: "/services" },
 };
 
 const services = [

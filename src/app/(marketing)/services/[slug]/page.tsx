@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createPublicClient } from "@/lib/supabase/server";
+import { SERVICE_SLUGS } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 // Fallback demo data
@@ -137,6 +138,10 @@ const DEMO_SERVICES = {
 
 export const revalidate = 3600; // Cache for 1 hour
 
+export function generateStaticParams() {
+  return SERVICE_SLUGS.map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   
@@ -151,8 +156,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
       if (service) {
         return {
-          title: `${service.title} | Scale Limited`,
+          title: service.title,
           description: service.short_description,
+          alternates: { canonical: `/services/${slug}` },
         };
       }
     }
@@ -163,12 +169,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const demoService = DEMO_SERVICES[slug as keyof typeof DEMO_SERVICES];
   if (demoService) {
     return {
-      title: `${demoService.title} | Scale Limited`,
+      title: demoService.title,
       description: demoService.short_description,
+      alternates: { canonical: `/services/${slug}` },
     };
   }
 
-  return { title: "Service Not Found | Scale Limited" };
+  return { title: "Service Not Found", robots: { index: false, follow: false } };
 }
 
 export default async function ServiceDetailPage({

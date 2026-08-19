@@ -3,8 +3,9 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { MapPin, Mail, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Scale Limited",
+  title: "Contact Us",
   description: "Get in touch with Scale Limited to discuss how we can help your business grow.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {

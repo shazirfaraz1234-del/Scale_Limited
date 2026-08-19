@@ -3,8 +3,9 @@ import { ConsultationForm } from "@/components/forms/ConsultationForm";
 import { Clock, ShieldCheck, Users } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Book a Consultation | Scale Limited",
+  title: "Book a Consultation",
   description: "Schedule a consultation with Scale Limited's experts to discuss your business requirements.",
+  alternates: { canonical: "/book-consultation" },
 };
 
 export default function BookConsultationPage() {

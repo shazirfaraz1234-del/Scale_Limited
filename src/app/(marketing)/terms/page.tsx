@@ -2,8 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions | Scale Limited",
+  title: "Terms and Conditions",
   description: "Terms and conditions for using Scale Limited's website and services.",
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

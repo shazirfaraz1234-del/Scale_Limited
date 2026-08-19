@@ -2,8 +2,9 @@ import { Metadata } from "next";
 import { Users, Target, Lightbulb, CheckCircle2, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Us | Scale Limited",
+  title: "About Us",
   description: "Learn about Scale Limited, our mission, vision, and how we help businesses scale with confidence.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

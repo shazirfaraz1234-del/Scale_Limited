@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createPublicClient } from "@/lib/supabase/server";
+import { INDUSTRY_SLUGS } from "@/lib/seo";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 // Fallback demo data
@@ -42,6 +43,10 @@ const DEMO_INDUSTRIES = {
 
 export const revalidate = 3600; // Cache for 1 hour
 
+export function generateStaticParams() {
+  return INDUSTRY_SLUGS.map((slug) => ({ slug }));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   
@@ -56,8 +61,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
       if (industry) {
         return {
-          title: `${industry.name} | Scale Limited`,
+          title: `${industry.name} Industry Solutions`,
           description: industry.short_description,
+          alternates: { canonical: `/industries/${slug}` },
         };
       }
     }
@@ -68,12 +74,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const demoIndustry = DEMO_INDUSTRIES[slug as keyof typeof DEMO_INDUSTRIES];
   if (demoIndustry) {
     return {
-      title: `${demoIndustry.name} | Scale Limited`,
+      title: `${demoIndustry.name} Industry Solutions`,
       description: demoIndustry.short_description,
+      alternates: { canonical: `/industries/${slug}` },
     };
   }
 
-  return { title: "Industry Not Found | Scale Limited" };
+  return { title: "Industry Not Found", robots: { index: false, follow: false } };
 }
 
 export default async function IndustryDetailPage({

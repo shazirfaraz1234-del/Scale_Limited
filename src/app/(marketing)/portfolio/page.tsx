@@ -2,8 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 export const metadata: Metadata = {
-  title: "Portfolio & Success Stories | Scale Limited",
+  title: "Portfolio & Success Stories",
   description: "Explore our success stories and see how Scale Limited helps businesses grow through flexible staffing, reliable BPO, and technology solutions.",
+  alternates: { canonical: "/portfolio" },
 };
 
 export const revalidate = 3600; // Cache for 1 hour
@@ -14,7 +15,7 @@ const DEMO_PROJECTS = [
     slug: "enterprise-ecommerce-migration",
     industry: "E-commerce",
     service: "Technology & AI Solutions",
-    summary: "Migrated a legacy retail platform to a modern, scalable architecture handling 10k+ daily orders. DEMO CONTENT",
+    summary: "Migrated a legacy retail platform to a modern, scalable architecture handling 10k+ daily orders.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
   },
   {
@@ -22,7 +23,7 @@ const DEMO_PROJECTS = [
     slug: "scaling-qa-fintech",
     industry: "Finance",
     service: "Staff Augmentation",
-    summary: "Provided a dedicated team of 5 Senior QA Automation Engineers to accelerate product releases. DEMO CONTENT",
+    summary: "Provided a dedicated team of 5 Senior QA Automation Engineers to accelerate product releases.",
     image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop"
   },
   {
@@ -30,7 +31,7 @@ const DEMO_PROJECTS = [
     slug: "24-7-customer-support",
     industry: "Technology",
     service: "Business Process Outsourcing",
-    summary: "Built and managed a dedicated support team providing round-the-clock assistance for a global SaaS company. DEMO CONTENT",
+    summary: "Built and managed a dedicated support team providing round-the-clock assistance for a global SaaS company.",
     image: "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2069&auto=format&fit=crop"
   }
 ];
