@@ -2,8 +2,14 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { createPublicClient } from "@/lib/supabase/server";
-import { SERVICE_SLUGS } from "@/lib/seo";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import {
+  SERVICE_SLUGS,
+  SERVICE_GROUPS,
+  breadcrumbSchema,
+  getServiceParent,
+  getRelatedServices,
+} from "@/lib/seo";
+import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 
 // Fallback demo data
 const DEMO_SERVICES = {
@@ -210,10 +216,51 @@ export default async function ServiceDetailPage({
     notFound();
   }
 
+  // Where this service sits in the tree: either it is a top-level category
+  // (and has children of its own) or it belongs to one.
+  const category = SERVICE_GROUPS.find((group) => group.slug === slug);
+  const parent = getServiceParent(slug);
+  const related = getRelatedServices(slug);
+
+  const crumbs = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    ...(parent ? [{ name: parent.title, path: `/services/${parent.slug}` }] : []),
+    { name: service.title, path: `/services/${slug}` },
+  ];
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-navy text-white pt-32 pb-24 lg:pt-40 lg:pb-32 relative overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }}
+      />
+
+      {/* Breadcrumb trail — matches the BreadcrumbList schema above */}
+      <nav aria-label="Breadcrumb" className="bg-navy pt-24 lg:pt-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <ol className="flex flex-wrap items-center gap-1 text-sm text-gray-400">
+            {crumbs.map((crumb, index) => {
+              const isLast = index === crumbs.length - 1;
+              return (
+                <li key={crumb.path} className="flex items-center gap-1">
+                  {index > 0 && <ChevronRight className="h-3.5 w-3.5 text-gray-600" />}
+                  {isLast ? (
+                    <span className="text-gray-300" aria-current="page">{crumb.name}</span>
+                  ) : (
+                    <Link href={crumb.path} className="hover:text-white transition-colors">
+                      {crumb.name}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </nav>
+
+      {/* Hero Section — top spacing now comes from the breadcrumb bar above */}
+      <section className="bg-navy text-white pt-10 pb-24 lg:pt-14 lg:pb-32 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-full h-full overflow-hidden z-0">
           <div className="absolute -top-40 -right-40 w-[40rem] h-[40rem] bg-problue rounded-full mix-blend-multiply filter blur-[120px] opacity-40"></div>
         </div>
@@ -291,6 +338,49 @@ export default async function ServiceDetailPage({
           </div>
         </div>
       </section>
+
+      {/* Category children, or sibling services for a leaf page. Without this
+          block the deeper service pages have no inbound links at all. */}
+      {(category?.children.length || related.length) ? (
+        <section className="py-20 bg-gray-50 border-t border-gray-200">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold tracking-tight text-navy sm:text-3xl mb-3">
+              {category ? `${category.title} Services` : "Related Services"}
+            </h2>
+            <p className="text-gray-600 mb-10 max-w-2xl">
+              {category
+                ? `Specialised roles and solutions within our ${category.title.toLowerCase()} practice.`
+                : `Other services teams often combine with ${service.title}.`}
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(category ? category.children : related).map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/services/${item.slug}`}
+                  className="group bg-white rounded-2xl border border-gray-200 p-6 shadow-sm hover:shadow-md hover:border-problue transition-all"
+                >
+                  <h3 className="text-lg font-bold text-navy group-hover:text-problue transition-colors mb-2">
+                    {item.title}
+                  </h3>
+                  <span className="inline-flex items-center text-sm font-semibold text-problue">
+                    Learn more <ArrowRight className="ml-2 h-4 w-4" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+
+            {parent && (
+              <Link
+                href={`/services/${parent.slug}`}
+                className="inline-flex items-center mt-10 text-problue font-semibold hover:text-blue-700 transition-colors"
+              >
+                All {parent.title} services <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            )}
+          </div>
+        </section>
+      ) : null}
 
       {/* Call to Action */}
       <section className="py-24 bg-problue text-white relative overflow-hidden">

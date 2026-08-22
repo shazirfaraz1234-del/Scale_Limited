@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Users, Briefcase, Cpu, ShieldCheck, Globe, Zap, TrendingUp, CheckCircle2, ChevronDown, Check } from "lucide-react";
+import { SERVICE_GROUPS, INDUSTRIES } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Our Services",
@@ -221,6 +222,63 @@ export default function ServicesPage() {
                 </div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. FULL SERVICE DIRECTORY — every service page reachable from here */}
+      <section className="py-24 bg-gray-50 border-t border-gray-200">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h4 className="text-problue font-bold tracking-wider uppercase text-sm mb-3">Full Directory</h4>
+            <h2 className="text-3xl font-bold tracking-tight text-navy sm:text-4xl mb-4">
+              Explore Every Service
+            </h2>
+            <p className="text-lg text-gray-600">
+              Browse the complete range of roles and solutions Scale Limited delivers.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {SERVICE_GROUPS.map((group) => (
+              <div key={group.slug} className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+                <h3 className="text-lg font-bold text-navy mb-1">
+                  <Link href={`/services/${group.slug}`} className="hover:text-problue transition-colors">
+                    {group.title}
+                  </Link>
+                </h3>
+                <p className="text-sm text-gray-500 mb-6">{group.children.length} specialised services</p>
+                <ul className="space-y-3">
+                  {group.children.map((child) => (
+                    <li key={child.slug}>
+                      <Link
+                        href={`/services/${child.slug}`}
+                        className="group inline-flex items-start text-gray-600 hover:text-problue transition-colors"
+                      >
+                        <ArrowRight className="h-4 w-4 mr-2 mt-1 flex-shrink-0 text-gray-300 group-hover:text-problue transition-colors" />
+                        <span>{child.title}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-12 pt-10 border-t border-gray-200">
+            <h3 className="text-sm font-bold tracking-wider uppercase text-gray-500 mb-5">Industries We Serve</h3>
+            <ul className="flex flex-wrap gap-3">
+              {INDUSTRIES.map((industry) => (
+                <li key={industry.slug}>
+                  <Link
+                    href={`/industries/${industry.slug}`}
+                    className="inline-flex items-center rounded-full border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:border-problue hover:text-problue transition-colors"
+                  >
+                    {industry.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

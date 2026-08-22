@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, organizationSchema } from "@/lib/seo";
+import { SITE_URL, siteSchemaGraph } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -67,7 +67,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteSchemaGraph) }}
         />
         <NextTopLoader color="#0F172A" showSpinner={false} height={3} />
         {children}
