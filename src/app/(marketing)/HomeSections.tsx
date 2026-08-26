@@ -91,7 +91,7 @@ export function HomeSections() {
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative bg-gray-50/30 text-navy overflow-x-hidden pt-24 pb-12 lg:pt-32 lg:pb-16 min-h-[60vh] lg:min-h-[70vh] flex items-center">
+      <section className="relative bg-gray-50/30 text-navy overflow-hidden pt-24 pb-12 lg:pt-24 lg:pb-16 min-h-[60vh] lg:min-h-[70vh] flex items-center">
         {/* Background abstract shapes */}
         <div className="absolute top-1/4 right-0 w-[500px] h-[1000px] bg-navy -skew-x-[25deg] translate-x-48 hidden lg:block" />
         
@@ -201,7 +201,7 @@ export function HomeSections() {
           </div>
 
             {/* Right Side - Animated Image (Desktop Only) */}
-            <div className="relative hidden lg:flex justify-center items-center z-10">
+            <div className="relative hidden lg:flex justify-center items-center z-10 lg:-mt-24">
               <div className="relative lg:w-[550px] lg:h-[550px]">
                 {/* Rotating Shapes Wrapper */}
                 <div className="absolute inset-0 animate-[spin_24s_linear_infinite] pointer-events-none z-20">
