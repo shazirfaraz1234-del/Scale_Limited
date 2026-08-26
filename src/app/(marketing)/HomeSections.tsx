@@ -201,7 +201,7 @@ export function HomeSections() {
           </div>
 
             {/* Right Side - Animated Image (Desktop Only) */}
-            <div className="relative hidden lg:flex justify-center items-center z-10 lg:-mt-8">
+            <div className="relative hidden lg:flex justify-center items-center z-10 lg:mt-4">
               <div className="relative lg:w-[550px] lg:h-[550px]">
                 {/* Rotating Shapes Wrapper */}
                 <div className="absolute inset-0 animate-[spin_24s_linear_infinite] pointer-events-none z-20">
