@@ -52,6 +52,9 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "7Uwgns3VlUadhB5MyeeHq_aVBhQ5rWhj6Tq6iVzXPK4",
+  },
 };
 
 import NextTopLoader from 'nextjs-toploader';
