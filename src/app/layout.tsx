@@ -52,6 +52,14 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
   verification: {
     google: "7Uwgns3VlUadhB5MyeeHq_aVBhQ5rWhj6Tq6iVzXPK4",
   },
