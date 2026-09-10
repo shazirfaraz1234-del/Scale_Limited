@@ -26,7 +26,14 @@ import {
   Store,
   Handshake,
   Clock,
+  Star,
 } from "lucide-react";
+
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+  </svg>
+);
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -794,26 +801,88 @@ export function HomeSections() {
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-24 bg-white relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Recommendations & Client Reviews */}
+      <section className="py-24 bg-gray-50/70 relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl mx-auto text-center"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="text-center max-w-3xl mx-auto mb-16"
           >
-            <Quote className="h-16 w-16 text-blue-100 mx-auto mb-8" />
-            <p className="text-3xl md:text-4xl font-medium text-navy leading-snug mb-10">
-              &quot;Scale Limited plugged into our operations quickly and gave us the flexibility
-              to grow without the overhead of building every team in-house.&quot;
-            </p>
-            <div className="flex flex-col items-center">
-              <span className="font-bold text-lg text-navy">Operations Director</span>
-              <span className="text-problue font-medium">Client Partner</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50/80 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-problue mb-4">
+              <ShieldCheck className="h-4 w-4" />
+              Verified Client Recommendations
             </div>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-navy mb-4">
+              What Our Clients Say
+            </h2>
+            <p className="text-lg text-gray-600">
+              Direct recommendations and reviews from partner executives and clients.
+            </p>
           </motion.div>
+
+          <div className="max-w-4xl mx-auto">
+            {/* Featured Recommendation Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 relative overflow-hidden group hover:border-blue-200 transition-all"
+            >
+              {/* Background decorative quote */}
+              <Quote className="h-20 w-20 text-blue-100/60 absolute top-6 right-8 pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col gap-6">
+                {/* Header with Avatar, Name, LinkedIn info */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-gray-100">
+                  <div className="flex items-center gap-4">
+                    {/* Avatar Circle */}
+                    <div className="w-14 h-14 rounded-full bg-navy text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0">
+                      SJ
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="text-xl font-bold text-navy">Sarim Jaffrani</h3>
+                        <span className="inline-flex items-center gap-1 bg-blue-50 text-[#0a66c2] text-xs font-semibold px-2 py-0.5 rounded border border-blue-200">
+                          <LinkedinIcon className="w-3.5 h-3.5 fill-current" />
+                          1st
+                        </span>
+                      </div>
+                      <p className="text-sm font-semibold text-gray-700">SCADA INC</p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        September 9, 2026, Sarim was Shazir&apos;s client
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1 text-amber-400 shrink-0">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-5 h-5 fill-amber-400 stroke-amber-400" />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Review Body Text */}
+                <p className="text-gray-700 text-lg md:text-xl leading-relaxed italic">
+                  &quot;We used Scale Limited for our BPO/back-office needs and had a great experience working with Shazir — professional, responsive, and reliable. The team consistently delivered quality work on time and made the entire process smooth and hassle-free. Their attention to detail and commitment to our requirements made them a dependable partner, and we would gladly recommend their services.&quot;
+                </p>
+
+                {/* Footer Badges */}
+                <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+                  <span className="inline-flex items-center gap-2 text-xs font-medium text-gray-600 bg-gray-50 px-3.5 py-1.5 rounded-full border border-gray-200">
+                    <Briefcase className="w-3.5 h-3.5 text-problue" />
+                    BPO / Back-Office Needs
+                  </span>
+                  <span className="text-xs text-problue font-semibold flex items-center gap-1">
+                    Received Recommendation • 1st Degree Client
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
